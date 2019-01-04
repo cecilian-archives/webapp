@@ -1,10 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+// import ApolloClient from "apollo-boost";
+// import { ApolloProvider } from "react-apollo";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline } from "@material-ui/core";
+import archiveTheme from "./theme";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// const graphqlClient = new ApolloClient({
+//     uri: "https://gammaql.gsc.org.uk/",
+// });
+
+const ThemedApp = () => (
+    <MuiThemeProvider theme={archiveTheme}>
+        <CssBaseline />
+        <App />
+    </MuiThemeProvider>
+);
+
+// const ConnectedApp = () => (
+//     <ApolloProvider client={graphqlClient}>
+//         <ThemedApp />
+//     </ApolloProvider>
+// );
+
+ReactDOM.render(<ThemedApp />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

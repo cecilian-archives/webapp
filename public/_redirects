@@ -1,0 +1,5 @@
+# Redirect default Netlify subdomain to primary domain
+https://cecilian-archives-upload.netlify.com/* https://upload.cecilianarchives.com/:splat 301!
+
+# Get Lambda requests through the service worker by proxying
+/_/* /.netlify/:splat 200

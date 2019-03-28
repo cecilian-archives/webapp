@@ -5,19 +5,19 @@ import RouteMapper from "./routes/RouteMapper";
 import UploadRoute from "./routes/UploadRoute";
 
 const routes = [
-    {
-        path: "/",
-        render: ({ match }) => <UploadRoute match={match} />,
-    },
+  {
+    path: "/",
+    render: ({ match }) => <UploadRoute match={match} />,
+  },
 ];
 
 const App = () => (
-    <BrowserRouter>
-        <>
-            <CecilianAppBar />
-            <RouteMapper routes={routes} defaultRoute="/" />
-        </>
-    </BrowserRouter>
+  <BrowserRouter>
+    <>
+      <CecilianAppBar />
+      <RouteMapper routes={routes} defaultRoute="/" />
+    </>
+  </BrowserRouter>
 );
 
 export default App;

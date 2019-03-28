@@ -1,14 +1,26 @@
 import React from "react";
-import Hold from "../components/root/Hold";
 import RouteMapper from "./RouteMapper";
+import StartPage from "../components/root/StartPage";
+import MinutesPage from "../components/root/MinutesPage";
+import Hold from "../components/root/Hold";
 
 const routes = [
-    {
-        path: "/start",
-        render: ({ match }) => <Hold />,
-    },
+  {
+    path: "/minutes",
+    render: ({ match }) => <MinutesPage />,
+  },
+  {
+    path: "/photos",
+    render: ({ match }) => <Hold />,
+  },
+  {
+    path: "/",
+    render: ({ match }) => <StartPage />,
+  },
 ];
 
-const UploadRoute = ({ match }) => <RouteMapper routes={routes} rootPath={match.path} defaultRoute="/start" />;
+const UploadRoute = ({ match }) => (
+  <RouteMapper routes={routes} rootPath={match.path} defaultRoute="/" />
+);
 
 export default UploadRoute;

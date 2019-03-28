@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import withMobileDialog from "@material-ui/core/withMobileDialog";
+import CloudCircleIcon from '@material-ui/icons/CloudCircle';
 
 const styles = {
   holder: {
@@ -14,6 +15,10 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "90vh"
+  },
+  button: {
+    textTransform: "none",
+    fontWeight: "bold"
   }
 };
 
@@ -23,8 +28,9 @@ const Hold = ({ classes }) => {
   const handleClose = () => setOpen(false);
   return (
     <div className={classes.holder}>
-      <Button variant="contained" color="secondary" onClick={handleOpen}>
-        Start
+      <Button variant="contained" size="large" color="secondary" onClick={handleOpen} className={classes.button}>
+        Hold&nbsp;
+        <CloudCircleIcon className={classes.rightIcon} />
       </Button>
       <Dialog
         open={open}

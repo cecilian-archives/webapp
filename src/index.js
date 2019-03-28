@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import ApolloClient from "apollo-boost";
-// import { ApolloProvider } from "react-apollo";
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import { CssBaseline } from "@material-ui/core";
 import archiveTheme from "./theme";
 import App from "./App";
@@ -13,10 +13,12 @@ import * as serviceWorker from "./serviceWorker";
 // });
 
 const ThemedApp = () => (
-    <MuiThemeProvider theme={archiveTheme}>
-        <CssBaseline />
-        <App />
-    </MuiThemeProvider>
+  <MuiThemeProvider theme={archiveTheme}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <CssBaseline />
+      <App />
+    </MuiPickersUtilsProvider>
+  </MuiThemeProvider>
 );
 
 // const ConnectedApp = () => (

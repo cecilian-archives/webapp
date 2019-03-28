@@ -27,7 +27,7 @@
     "start:lambda": "netlify-lambda -c src/lambda/config/webpack.functions.js serve src/lambda",
     "build": "run-p build:**",
     "build:app": "react-scripts build",
-    "build:lambda": "netlify-lambda build src/lambda",
+    "build:lambda": "netlify-lambda -c src/lambda/config/webpack.functions.js build src/lambda",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

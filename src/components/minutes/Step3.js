@@ -39,6 +39,9 @@ const completeUpload = (faunaRef, item, setUploadError) => {
     return true;
   } catch (err) {
     window.CECILIAN_DEBUG && console.error(err);
+    setUploadError(
+      "Uh oh. Something went wrong in the connection process. Everything you have entered has been saved, but the information needs connected to the file. Let a member of the archive team know."
+    );
     return false;
   }
 };
@@ -56,13 +59,13 @@ const Step3 = ({
     <>
       {uploadCompleted ? (
         <>
-          <Typography variant="h5" className={classes.messages}>
+          <Typography variant="h5" className={classes.introTextTop}>
             Complete!
           </Typography>
           <Typography variant="body1">
             You've successfully added these minutes to the archive.
           </Typography>
-          <Typography variant="body1" className={classes.messages}>
+          <Typography variant="body1" className={classes.introTextBottom}>
             Press Start Again if you need to add another set.
           </Typography>
         </>

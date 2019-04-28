@@ -21,7 +21,7 @@ export const handler = async event => {
     console.error(err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ response: null }),
+      body: JSON.stringify({ response: null, error: err }),
     };
   }
 };

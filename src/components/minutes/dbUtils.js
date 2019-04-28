@@ -17,9 +17,10 @@ export const saveArchiveItem = async (faunaRef, item) => {
       body: JSON.stringify({ faunaRef, itemToSave }),
     });
     const json = await response.json();
+    window.CECILIAN_DEBUG && console.log(json);
     return json.response;
   } catch (err) {
     console.error(err);
-    return null;
+    throw err;
   }
 };

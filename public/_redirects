@@ -3,3 +3,7 @@ https://cecilian-archives-upload.netlify.com/* https://upload.cecilianarchives.c
 
 # Get Lambda requests through the service worker by proxying
 /_/* /.netlify/:splat 200
+
+# Send all other requests to index.html
+# to allow client-side routing
+/* /index.html 200

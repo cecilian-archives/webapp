@@ -34,14 +34,13 @@ const styles = theme => ({
   },
 });
 
-const StartPage = props => {
-  const { classes } = props;
+const StartPage = ({ classes }) => {
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={10} sm={8} md={6} className={classes.itemSpaceTop}>
           <Typography variant="h4">
-            Welcome to the Cecilian Archive Uploader!
+            Welcome to the Cecilian Archive Uploader
           </Typography>
           <Typography variant="body1">
             Select which type of archive document you would like to upload:

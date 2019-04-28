@@ -35,7 +35,7 @@ const Step2 = ({ item, setItem, uppy, classes }) => {
       </Typography>
       <Typography variant="body1" className={classes.introTextBottom}>
         Wait for the upload to complete before moving on to the next step. If
-        you get any errors, alert a member of the archive team!
+        you get any errors, contact a member of the archive team.
       </Typography>
       <Grid container direction="row" justify="center" alignItems="center">
         <Dashboard

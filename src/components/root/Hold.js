@@ -9,18 +9,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import withMobileDialog from "@material-ui/core/withMobileDialog";
 import CloudCircleIcon from "@material-ui/icons/CloudCircle";
 
-const styles = {
+const styles = theme => ({
   holder: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "90vh",
+    marginTop: 5 * theme.spacing.unit,
   },
   button: {
     textTransform: "none",
     fontWeight: "bold",
   },
-};
+});
 
 const Hold = ({ classes }) => {
   const [open, setOpen] = React.useState(false);

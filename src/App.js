@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import CecilianAppBar from "./components/CecilianAppBar";
+import CecilianLogosFooter from "./components/CecilianLogosFooter";
 import RouteMapper from "./routes/RouteMapper";
 import UploadRoute from "./routes/UploadRoute";
 
@@ -15,7 +16,10 @@ const App = () => (
   <BrowserRouter>
     <>
       <CecilianAppBar />
-      <RouteMapper routes={routes} defaultRoute="/" />
+      <div style={{ flexGrow: "1" }}>
+        <RouteMapper routes={routes} defaultRoute="/" />
+      </div>
+      <CecilianLogosFooter />
     </>
   </BrowserRouter>
 );

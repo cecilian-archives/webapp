@@ -42,12 +42,13 @@ const styles = theme => ({
     marginBottom: 3 * theme.spacing.unit,
   },
   saveReminder: {
-    marginTop: 4 * theme.spacing.unit,
+    marginTop: 3 * theme.spacing.unit,
     marginBottom: -2 * theme.spacing.unit,
   },
   messages: {
     marginTop: 2 * theme.spacing.unit,
     textAlign: "center",
+    color: theme.palette.error.main,
   },
 });
 
@@ -118,7 +119,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
         with *.
       </Typography>
       <Typography variant="body1" className={classes.introTextBottom}>
-        Click on each field for more information on what it should contain!
+        Click on each field for more information on what it should contain.
       </Typography>
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -256,12 +257,12 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
         xs={12}
         container
         direction="row"
-        justify="flex-end"
+        justify="center"
         alignItems="center"
         className={classes.saveReminder}
       >
         <Typography variant="body1">
-          Remember to save this info before moving on to the next step!
+          Remember to save this info before moving on to the next step
         </Typography>
       </Grid>
       {window.CECILIAN_DEBUG && <pre>{JSON.stringify(item, null, 2)}</pre>}

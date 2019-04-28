@@ -17,6 +17,7 @@ const styles = theme => ({
   messages: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
+    color: theme.palette.error.main,
   },
 });
 
@@ -68,7 +69,7 @@ const Step3 = ({
       ) : (
         <>
           <Typography variant="h5" className={classes.introTextTop}>
-            Nearly there!
+            Nearly there...
           </Typography>
           <Typography variant="body1" className={classes.introTextBottom}>
             Behind the scenes, the archive system needs to connect the two steps
@@ -77,7 +78,7 @@ const Step3 = ({
           </Typography>
         </>
       )}
-      <Grid container direction="row" justify="center" alignItems="center">
+      <Grid container direction="column" justify="center" alignItems="center">
         <Button
           variant="contained"
           color="secondary"

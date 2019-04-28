@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Grid from "@material-ui/core/Grid";
@@ -60,7 +61,7 @@ const styles = theme => ({
 
 const steps = [
   {
-    title: "Introduction",
+    title: "Welcome",
     render: () => <Step0 />,
   },
   {
@@ -80,6 +81,7 @@ const steps = [
 const UploadStepper = ({ classes }) => {
   const [activeStep, setActiveStep] = React.useState(0);
   const numSteps = steps.length;
+  const isLastStep = activeStep === numSteps - 1;
   const nextStep = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
   const prevStep = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
 
@@ -96,6 +98,20 @@ const UploadStepper = ({ classes }) => {
   });
   const [faunaRef, setFaunaRef] = React.useState(null);
   const [uppyInstance] = React.useState(uppy);
+
+  const [uploadCompleted, setUploadCompleted] = React.useState(false);
+  const [uploadError, setUploadError] = React.useState(null);
+
+  const resetState = () => {
+    setItem({});
+    setFaunaRef(null);
+    uppyInstance.reset();
+    setUploadCompleted(false);
+    setUploadError(null);
+    setActiveStep(-1);
+  };
+
+  if (activeStep < 0) return <Redirect to="/" />;
 
   return (
     <Grid
@@ -125,6 +141,10 @@ const UploadStepper = ({ classes }) => {
           setFaunaRef,
           setActiveStep,
           uppy: uppyInstance,
+          uploadCompleted,
+          setUploadCompleted,
+          uploadError,
+          setUploadError,
         })}
       </Grid>
       <Grid item xs={12} sm={10} md={8} className={classes.stepperContainer}>
@@ -138,10 +158,10 @@ const UploadStepper = ({ classes }) => {
               variant="outlined"
               size="small"
               color="secondary"
-              onClick={nextStep}
-              disabled={activeStep === numSteps - 1}
+              onClick={isLastStep ? resetState : nextStep}
+              disabled={isLastStep && !uploadCompleted}
             >
-              Next
+              {isLastStep ? "Start Again" : "Next"}
               <KeyboardArrowRight className={classes.rightIcon} />
             </Button>
           }
@@ -151,7 +171,7 @@ const UploadStepper = ({ classes }) => {
               size="small"
               color="secondary"
               onClick={prevStep}
-              disabled={activeStep === 0}
+              disabled={isLastStep && uploadCompleted}
             >
               <KeyboardArrowLeft className={classes.leftIcon} />
               Back

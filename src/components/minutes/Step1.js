@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -12,8 +13,8 @@ import { saveArchiveItem } from "./dbUtils";
 const acquisitionMethods = [
   { value: "TRANSCRIPTION", label: "Transcription" },
   { value: "SCAN", label: "Scan" },
-  { value: "DIGITAL_NATIVE", label: "Native Digital Content" },
-  { value: "PREVIOUSLY_DIGITISED", label: "Previously Digitised Content" },
+  // { value: "DIGITAL_NATIVE", label: "Native Digital Content" },
+  // { value: "PREVIOUSLY_DIGITISED", label: "Previously Digitised Content" },
 ];
 
 const styles = theme => ({
@@ -32,14 +33,28 @@ const styles = theme => ({
     marginTop: 0,
     marginBottom: 2 * theme.spacing.unit,
   },
-  introText: {
+  introTextTop: {
+    marginTop: theme.spacing.unit,
+    marginBottom: 0.5 * theme.spacing.unit,
+  },
+  introTextBottom: {
+    marginTop: 0.5 * theme.spacing.unit,
     marginBottom: 3 * theme.spacing.unit,
+  },
+  saveReminder: {
+    marginTop: 4 * theme.spacing.unit,
+    marginBottom: -2 * theme.spacing.unit,
+  },
+  messages: {
+    marginTop: 2 * theme.spacing.unit,
+    textAlign: "center",
   },
 });
 
 const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
   const [currentlySaving, setCurrentlySaving] = React.useState(false);
   const [changed, setChanged] = React.useState(false);
+  const [saveError, setSaveError] = React.useState(false);
 
   const generateReference = name => value => {
     if (name !== "collection" && name !== "associatedDate") return "";
@@ -76,10 +91,34 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
     setChanged(true);
   };
 
+  const handleSave = async () => {
+    try {
+      setCurrentlySaving(true);
+      const itemSaveResponse = await saveArchiveItem(faunaRef, item);
+      setFaunaRef(itemSaveResponse.ref);
+      setChanged(false);
+      setCurrentlySaving(false);
+      setSaveError(false);
+    } catch (e) {
+      window.CECILIAN_DEBUG && console.error(e);
+      setSaveError(
+        "Unable to save! Something is going wrong behind the scenes and will need investigated by the archive team :/"
+      );
+      setFaunaRef(null);
+      setChanged(false);
+      setCurrentlySaving(false);
+    }
+  };
+
   return (
     <>
-      <Typography variant="body1" className={classes.introText}>
-        Form with info fields about the document to upload to FaunaDB
+      <Typography variant="body1" className={classes.introTextTop}>
+        Please fill out as much of the following information as you can about
+        the set of minutes you are about to upload. Required fields are marked
+        with *.
+      </Typography>
+      <Typography variant="body1" className={classes.introTextBottom}>
+        Click on each field for more information on what it should contain!
       </Typography>
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -116,7 +155,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
           })}
           margin="normal"
           variant="outlined"
-          placeholder="The date of the minutes, if there is one"
+          placeholder="The date of the minutes, if there is one, in YYYY-MM-DD format"
         />
         <TextField
           id="archiveId"
@@ -136,12 +175,12 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
           onChange={handleChange("createdBy")}
           margin="normal"
           variant="outlined"
-          placeholder="The original creator of the content - probably the minuting secretary"
+          placeholder="The original creator of the content, if known - probably the minuting secretary"
         />
         <TextField
           id="acquisitionMethod"
           select
-          label="Acquisition Method"
+          label="Method of digitisation"
           className={classes.formField}
           value={item.acquisitionMethod}
           InputLabelProps={{ shrink: item.acquisitionMethod ? true : false }}
@@ -158,7 +197,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
         </TextField>
         <TextField
           id="acquiredBy"
-          label="Acquired by"
+          label="Digitised by"
           className={classes.formField}
           value={item.acquiredBy}
           onChange={handleChange("acquiredBy")}
@@ -196,24 +235,36 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
           onChange={handleChange("uploadedBy")}
           margin="normal"
           variant="outlined"
-          placeholder="Your name as the person uploading the item"
+          placeholder="Your name, as the person uploading the item"
         />
         <Button
           variant="contained"
           color="secondary"
-          onClick={async () => {
-            setCurrentlySaving(true);
-            const itemSaveResponse = await saveArchiveItem(faunaRef, item);
-            setFaunaRef(itemSaveResponse.ref);
-            setChanged(false);
-            setCurrentlySaving(false);
-          }}
+          onClick={handleSave}
           disabled={currentlySaving || !changed}
         >
-          Save
+          {currentlySaving ? "Saving..." : !changed ? "Saved" : "Save"}
         </Button>
+        {!changed && (
+          <Typography variant="body2" className={classes.messages}>
+            {saveError}
+          </Typography>
+        )}
       </form>
-      <pre>{JSON.stringify(item, null, 2)}</pre>
+      <Grid
+        item
+        xs={12}
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        className={classes.saveReminder}
+      >
+        <Typography variant="body1">
+          Remember to save this info before moving on to the next step!
+        </Typography>
+      </Grid>
+      {window.CECILIAN_DEBUG && <pre>{JSON.stringify(item, null, 2)}</pre>}
     </>
   );
 };

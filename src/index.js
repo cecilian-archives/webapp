@@ -9,7 +9,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 // const graphqlClient = new ApolloClient({
-//     uri: "https://gammaql.gsc.org.uk/",
+//     uri: "",
 // });
 
 const ThemedApp = () => (

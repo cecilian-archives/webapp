@@ -265,7 +265,9 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
           Remember to save this info before moving on to the next step
         </Typography>
       </Grid>
-      {window.CECILIAN_DEBUG && <pre>{JSON.stringify(item, null, 2)}</pre>}
+      {window.CECILIAN_DEBUG && (
+        <pre>{JSON.stringify({ faunaRef, item }, null, 2)}</pre>
+      )}
     </>
   );
 };

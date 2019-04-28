@@ -1,5 +1,5 @@
 import { Client, query as q } from "faunadb";
-const { Create, Update, Class } = q;
+const { Create, Update, Class, Ref } = q;
 
 export const handler = async event => {
   try {
@@ -10,7 +10,11 @@ export const handler = async event => {
     });
 
     const response = faunaRef
-      ? await fauna.query(Update(faunaRef, { data: itemToSave }))
+      ? await fauna.query(
+          Update(Ref(Class("ArchiveItem"), faunaRef["@ref"].id), {
+            data: itemToSave,
+          })
+        )
       : await fauna.query(Create(Class("ArchiveItem"), { data: itemToSave }));
 
     return {
@@ -18,7 +22,7 @@ export const handler = async event => {
       body: JSON.stringify({ response }),
     };
   } catch (err) {
-    console.error(err);
+    console.log(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ response: null, error: err }),

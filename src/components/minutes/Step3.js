@@ -40,7 +40,7 @@ const completeUpload = (faunaRef, item, setUploadError) => {
   } catch (err) {
     window.CECILIAN_DEBUG && console.error(err);
     setUploadError(
-      "Uh oh. Something went wrong in the connection process. Everything you have entered has been saved, but the information needs connected to the file. Let a member of the archive team know."
+      "Uh oh. Something went wrong in the connection process. Everything you have entered has been saved, but the information needs to be manually connected to the file. Let a member of the archive team know."
     );
     return false;
   }

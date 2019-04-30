@@ -168,6 +168,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
           required
           disabled
         />
+        {/* // TODO: Clarify. Removed for confusion and ambiguity.
         <TextField
           id="createdBy"
           label="Created by"
@@ -177,7 +178,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
           margin="normal"
           variant="outlined"
           placeholder="The original creator of the content, if known - probably the minuting secretary"
-        />
+        /> */}
         <TextField
           id="acquisitionMethod"
           select

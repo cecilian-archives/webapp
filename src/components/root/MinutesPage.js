@@ -90,10 +90,11 @@ const UploadStepper = ({ classes }) => {
     collection: "",
     associatedDate: null,
     archiveId: "",
-    createdBy: "",
+    // createdBy: "",
     acquisitionMethod: "",
     acquiredBy: "",
     notes: "",
+    // tags: "",
     uploadedBy: "",
   });
   const [faunaRef, setFaunaRef] = React.useState(null);

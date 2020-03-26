@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { DatePicker } from "material-ui-pickers";
+import { DatePicker } from "@material-ui/pickers";
 import Button from "@material-ui/core/Button";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
@@ -135,7 +135,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
         />
         <DatePicker
           openTo="year"
-          views={["year", "month", "day"]}
+          views={["year", "month", "date"]}
           keyboard
           format="yyyy-MM-dd"
           mask={value =>
@@ -155,7 +155,7 @@ const Step1 = ({ item, setItem, faunaRef, setFaunaRef, classes }) => {
             updateRef: true,
           })}
           margin="normal"
-          variant="outlined"
+          inputVariant="outlined"
           placeholder="The date of the minutes, if there is one, in YYYY-MM-DD format"
         />
         <TextField

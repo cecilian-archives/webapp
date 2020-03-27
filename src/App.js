@@ -1,27 +1,27 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import CecilianAppBar from "./components/CecilianAppBar";
 import CecilianLogosFooter from "./components/CecilianLogosFooter";
-import RouteMapper from "./routes/RouteMapper";
-import UploadRoute from "./routes/UploadRoute";
-
-const routes = [
-  {
-    path: "/",
-    render: ({ match }) => <UploadRoute match={match} />,
-  },
-];
+import StartPage from "./components/root/StartPage";
+import MinutesPage from "./components/root/MinutesPage";
 
 const App = () => (
-  <BrowserRouter>
-    <>
-      <CecilianAppBar />
-      <div style={{ flexGrow: "1" }}>
-        <RouteMapper routes={routes} defaultRoute="/" />
-      </div>
-      <CecilianLogosFooter />
-    </>
-  </BrowserRouter>
+  <Router>
+    <CecilianAppBar />
+    <div style={{ flexGrow: "1" }}>
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/minutes" element={<MinutesPage />} />
+        <Route path="*" element={<Redirect to="/" />} />
+      </Routes>
+    </div>
+    <CecilianLogosFooter />
+  </Router>
 );
 
 export default App;

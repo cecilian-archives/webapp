@@ -1,14 +1,14 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import logo from "../assets/logo.png";
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   appTitle: {
     fontFamily: "Brawler, serif",
@@ -18,9 +18,10 @@ const styles = theme => ({
     maxWidth: "50px",
     marginRight: "1rem",
   },
-});
+}));
 
-const CecilianAppBar = ({ classes }) => {
+const CecilianAppBar = () => {
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -41,4 +42,4 @@ const CecilianAppBar = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(CecilianAppBar);
+export default CecilianAppBar;

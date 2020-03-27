@@ -1,14 +1,14 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import logo1 from "../assets/cecilian_logo_c1970.jpg";
 import logo2 from "../assets/cecilian_logo_c1990.jpg";
 import logo3 from "../assets/cecilian_logo_c2000.jpg";
 import logo4 from "../assets/cecilian_logo_c2007.png";
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     minHeight: "70px",
     backgroundColor: theme.palette.primary.main,
   },
@@ -18,15 +18,16 @@ const styles = theme => ({
     marginLeft: "1%",
     marginRight: "1%",
     border: `2px solid ${theme.palette.secondary.main}`,
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
     backgroundColor: "#fff",
     cursor: "pointer",
   },
-});
+}));
 
 const openLogo = logo => window.open(logo, "");
 
-const CecilianLogosFooter = ({ classes }) => {
+const CecilianLogosFooter = () => {
+  const classes = useStyles();
   return (
     <Grid
       container
@@ -63,4 +64,4 @@ const CecilianLogosFooter = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(CecilianLogosFooter);
+export default CecilianLogosFooter;

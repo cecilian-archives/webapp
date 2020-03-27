@@ -1,118 +1,76 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import { Grid, Button, Typography } from "@material-ui/core";
+import MinutesUploadForm from "../minutes/";
+import { gql, useMutation } from "@apollo/client";
+import { uppy } from "../minutes/uppyInstance";
+import { makeStyles } from "@material-ui/core/styles";
 
-import Step0 from "../minutes/Step0";
-import Step1 from "../minutes/Step1";
-import Step2 from "../minutes/Step2";
-import Step3 from "../minutes/Step3";
-
-import { uppy } from "../minutes/fileUtils";
-
-const styles = theme => ({
-  link: {
-    textDecoration: "none",
-  },
-  button: {
-    margin: theme.spacing.unit,
-    textTransform: "none",
-    fontWeight: "bold",
-    width: "100%",
-  },
-  itemSpaceTop: {
-    marginTop: 10 * theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-  },
-  itemSpaceBottom: {
-    marginTop: theme.spacing.unit,
-    marginBottom: 10 * theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
+const useStyles = makeStyles(theme => ({
   pageContainer: {
     [theme.breakpoints.only("xs")]: {
-      paddingLeft: 2 * theme.spacing.unit,
-      paddingRight: 2 * theme.spacing.unit,
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
   },
-  stepperContainer: {
-    width: "100%",
+  pageTitleContainer: {
+    margin: theme.spacing(2, 0),
   },
-  stepper: {
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingBottom: 3 * theme.spacing.unit,
+  errorText: {
+    fontFamily: "monospace",
+    margin: theme.spacing(2, 0),
   },
-  stepContentsContainer: {
-    marginTop: 2 * theme.spacing.unit,
-    marginBottom: 4 * theme.spacing.unit,
-  },
-});
+}));
 
-const steps = [
-  {
-    title: "Welcome",
-    render: () => <Step0 />,
-  },
-  {
-    title: "Step 1",
-    render: props => <Step1 {...props} />,
-  },
-  {
-    title: "Step 2",
-    render: props => <Step2 {...props} />,
-  },
-  {
-    title: "Step 3",
-    render: props => <Step3 {...props} />,
-  },
-];
+const ADD_ARCHIVE_ITEM = gql`
+  mutation($item: ArchiveItemInput!) {
+    setArchiveItem(item: $item) {
+      id
+      archiveId
+      type
+    }
+  }
+`;
 
-const UploadStepper = ({ classes }) => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const numSteps = steps.length;
-  const isLastStep = activeStep === numSteps - 1;
-  const nextStep = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
-  const prevStep = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
+const emptyItem = {
+  archiveId: "",
+  type: "MINUTES",
+  acquisitionMethod: "",
+  collection: "",
+  associatedDate: null,
+  notes: "",
+  tagGroups: [],
+  acquiredBy: "",
+  uploadedBy: "",
+  files: [],
+};
 
-  const [item, setItem] = React.useState({
-    type: "MINUTES",
-    collection: "",
-    associatedDate: null,
-    archiveId: "",
-    // createdBy: "",
-    acquisitionMethod: "",
-    acquiredBy: "",
-    notes: "",
-    // tags: "",
-    uploadedBy: "",
-  });
-  const [faunaRef, setFaunaRef] = React.useState(null);
-  const [uppyInstance] = React.useState(uppy);
-
+const MinutesPage = () => {
+  const classes = useStyles();
+  const [item, setItem] = React.useState(emptyItem);
   const [uploadCompleted, setUploadCompleted] = React.useState(false);
-  const [uploadError, setUploadError] = React.useState(null);
+  const [uploadError, setUploadError] = React.useState(false);
 
-  const resetState = () => {
-    setItem({});
-    setFaunaRef(null);
-    uppyInstance.reset();
+  const [addArchiveItem, { loading, error, data }] = useMutation(
+    ADD_ARCHIVE_ITEM,
+    {
+      onCompleted: () => {
+        setUploadCompleted(true);
+        console.log(`Successful upload: ${data.id}`);
+      },
+      onError: () => setUploadError(error),
+    }
+  );
+
+  const resetState = async () => {
+    await uppy.reset();
+    setItem(emptyItem);
     setUploadCompleted(false);
-    setUploadError(null);
-    setActiveStep(-1);
+    setUploadError(false);
   };
 
-  if (activeStep < 0) return <Redirect to="/" />;
+  const handleSave = async () => {
+    await addArchiveItem({ variables: { item } });
+  };
 
   return (
     <Grid
@@ -131,57 +89,78 @@ const UploadStepper = ({ classes }) => {
         direction="column"
         justify="center"
         alignItems="flex-start"
-        className={classes.stepContentsContainer}
+        className={classes.pageTitleContainer}
       >
         <Typography variant="h4">Minutes Upload</Typography>
-        <Typography variant="h5">{steps[activeStep].title}</Typography>
-        {steps[activeStep].render({
-          item,
-          setItem,
-          faunaRef,
-          setFaunaRef,
-          setActiveStep,
-          uppy: uppyInstance,
-          uploadCompleted,
-          setUploadCompleted,
-          uploadError,
-          setUploadError,
-        })}
       </Grid>
-      <Grid item xs={12} sm={10} md={8} className={classes.stepperContainer}>
-        <MobileStepper
-          steps={numSteps}
-          position="static"
-          className={classes.stepper}
-          activeStep={activeStep}
-          nextButton={
+      {uploadCompleted ? (
+        <>
+          <Grid
+            item
+            xs={12}
+            sm={10}
+            md={8}
+            container
+            direction="column"
+            justify="center"
+            alignItems="flex-start"
+            className={classes.pageTitleContainer}
+          >
+            <Typography variant="body1">
+              Upload has completed successfully.
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={10}
+            md={8}
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
             <Button
-              variant="outlined"
-              size="small"
+              variant="contained"
               color="secondary"
-              onClick={isLastStep ? resetState : nextStep}
-              disabled={isLastStep && !uploadCompleted}
+              onClick={resetState}
+              className={classes.saveButton}
             >
-              {isLastStep ? "Start Again" : "Next"}
-              <KeyboardArrowRight className={classes.rightIcon} />
+              Upload Another
             </Button>
-          }
-          backButton={
-            <Button
-              variant="outlined"
-              size="small"
-              color="secondary"
-              onClick={prevStep}
-              disabled={isLastStep && uploadCompleted}
-            >
-              <KeyboardArrowLeft className={classes.leftIcon} />
-              Back
-            </Button>
-          }
+          </Grid>
+        </>
+      ) : uploadError ? (
+        <Grid
+          item
+          xs={12}
+          sm={10}
+          md={8}
+          container
+          direction="column"
+          justify="center"
+          alignItems="flex-start"
+          className={classes.pageTitleContainer}
+        >
+          <Typography variant="body1">
+            There has been an upload error. Please show the following error
+            message to a member of the archive team.
+          </Typography>
+          <Typography variant="body1" className={classes.errorText}>
+            {uploadError}
+          </Typography>
+        </Grid>
+      ) : (
+        <MinutesUploadForm
+          item={item}
+          setItem={setItem}
+          uppy={uppy}
+          handleSave={handleSave}
+          currentlySaving={loading}
         />
-      </Grid>
+      )}
     </Grid>
   );
 };
 
-export default withStyles(styles)(UploadStepper);
+export default MinutesPage;

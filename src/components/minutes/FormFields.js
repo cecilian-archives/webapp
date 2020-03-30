@@ -125,6 +125,15 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
         placeholder="The person who digitised the content for the archive (probably you)"
       />
       <TextField
+        id="uploadedBy"
+        label="Uploaded by"
+        className={classes.formField}
+        value={item.uploadedBy}
+        onChange={handleChange("uploadedBy")}
+        variant="outlined"
+        placeholder="Your name, as the person uploading the item"
+      />
+      <TextField
         id="notes"
         label="Notes"
         multiline
@@ -144,15 +153,6 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
           onChange={handleChange("tags")}
           variant="outlined"
         /> */}
-      <TextField
-        id="uploadedBy"
-        label="Uploaded by"
-        className={classes.formField}
-        value={item.uploadedBy}
-        onChange={handleChange("uploadedBy")}
-        variant="outlined"
-        placeholder="Your name, as the person uploading the item"
-      />
     </form>
   );
 };

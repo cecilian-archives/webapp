@@ -2,17 +2,12 @@ import React from "react";
 import { Grid, Button } from "@material-ui/core";
 import FormFields from "../minutes/FormFields";
 import FileUploader from "../minutes/FileUploader";
+import TagBuilder from "../shared/TagBuilder/";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
-  pageContainer: {
-    [theme.breakpoints.only("xs")]: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-  },
-  pageTitleContainer: {
-    margin: theme.spacing(2, 0),
+const useStyles = makeStyles((theme) => ({
+  minutesUploadFormRoot: {
+    width: "100%",
   },
   saveButton: {
     margin: theme.spacing(3, 0),
@@ -30,6 +25,7 @@ const MinutesUploadForm = ({
   currentlySaving,
 }) => {
   const classes = useStyles();
+  const setEnteredTags = (tags) => setItem({ ...item, tags });
   return (
     <>
       <Grid
@@ -48,6 +44,7 @@ const MinutesUploadForm = ({
           acquisitionMethods={acquisitionMethods}
         />
         <FileUploader item={item} setItem={setItem} uppy={uppy} />
+        <TagBuilder enteredTags={item.tags} setEnteredTags={setEnteredTags} />
       </Grid>
       <Grid
         item

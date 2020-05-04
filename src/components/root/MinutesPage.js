@@ -5,7 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import { uppy } from "../minutes/uppyInstance";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   pageContainer: {
     [theme.breakpoints.only("xs")]: {
       paddingLeft: theme.spacing(2),
@@ -38,10 +38,10 @@ const emptyItem = {
   collection: "",
   associatedDate: null,
   notes: "",
-  tagGroups: [],
   acquiredBy: "",
   uploadedBy: "",
   files: [],
+  tags: [],
 };
 
 const MinutesPage = () => {
@@ -69,7 +69,17 @@ const MinutesPage = () => {
   };
 
   const handleSave = async () => {
-    await addArchiveItem({ variables: { item } });
+    const newItem = {
+      ...item,
+      tags: item.tags.map((tag) => ({
+        type: tag.type,
+        ...(tag.person ? { person: tag.person?.id } : {}),
+        ...(tag.year ? { year: tag.year?.id } : {}),
+        ...(tag.event ? { event: tag.event?.id } : {}),
+        ...(tag.role ? { role: tag.role?.id } : {}),
+      })),
+    };
+    await addArchiveItem({ variables: { item: newItem } });
   };
 
   return (

@@ -196,7 +196,10 @@ const BuilderDialog = ({
           {Object.keys(tagTypeProperties).map((type) => (
             <MenuItem key={type} value={type}>
               <ListItemIcon>{tagTypeProperties[type].icon}</ListItemIcon>
-              <ListItemText primary={`${tagTypeProperties[type].label} Tag`} />
+              <ListItemText
+                primary={`${tagTypeProperties[type].label} Tag`}
+                secondary={tagTypeProperties[type].description}
+              />
             </MenuItem>
           ))}
         </TextField>

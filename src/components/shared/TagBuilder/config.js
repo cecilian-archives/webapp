@@ -60,6 +60,7 @@ export const tagTypeProperties = {
     // TODO: icon could be profile pic of referenced person
     colour: "deepBlue",
     label: "Person",
+    description: "Tag a Cecilian or other person by name",
     query: gql`
       {
         options: getAllCecilians {
@@ -76,6 +77,7 @@ export const tagTypeProperties = {
     icon: <DateRangeIcon />,
     colour: "brightOrange",
     label: "Year",
+    description: "Tag the Cecilian year",
     query: gql`
       {
         options: getAllYears {
@@ -101,6 +103,7 @@ export const tagTypeProperties = {
       ANNIVERSARY: "deepPurple",
     },
     label: "Event",
+    description: "Including Shows, Anniversaries, Dinner Dances etc.",
     query: gql`
       {
         options: getAllEvents {
@@ -131,6 +134,8 @@ export const tagTypeProperties = {
       SOCIETY: "brightBlue",
     },
     label: "Role",
+    description:
+      "Including Committee Roles, Production Roles, On-Stage Roles and Other Society Roles",
     query: gql`
       {
         options: getAllRoles {

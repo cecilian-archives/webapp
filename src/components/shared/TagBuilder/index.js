@@ -77,54 +77,52 @@ const TagBuilder = ({ enteredTags, setEnteredTags, displayOnly = false }) => {
   };
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item xs={12} sm={10} md={8} lg={6} className={classes.itemSpaceTop}>
-        <Autocomplete
-          id="tags"
-          classes={{
-            endAdornment: classes.endAdornment,
-            popupIndicator: classes.iconButton,
-          }}
-          multiple
-          fullWidth
-          disabled={displayOnly}
-          disableClearable
-          forcePopupIcon={!displayOnly}
-          openText="Add a tag"
-          popupIcon={<AddIcon />}
-          onOpen={() => setTagDialogOpen(true)}
-          freeSolo
-          options={[]}
-          value={enteredTags}
-          inputValue=""
-          renderTags={(value) =>
-            value.map((tagValue, index) => (
-              <TagChip
-                key={index}
-                tag={tagValue}
-                onClick={handleTagClick(index)}
-                onDelete={displayOnly ? undefined : handleTagDelete(index)}
-              />
-            ))
-          }
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="outlined"
-              label="Tags"
-              value=""
-              className={classes.hideCaret}
+    <Grid item xs={12} className={classes.itemSpaceTop}>
+      <Autocomplete
+        id="tags"
+        classes={{
+          endAdornment: classes.endAdornment,
+          popupIndicator: classes.iconButton,
+        }}
+        multiple
+        fullWidth
+        disabled={displayOnly}
+        disableClearable
+        forcePopupIcon={!displayOnly}
+        openText="Add a tag"
+        popupIcon={<AddIcon />}
+        onOpen={() => setTagDialogOpen(true)}
+        freeSolo
+        options={[]}
+        value={enteredTags}
+        inputValue=""
+        renderTags={(value) =>
+          value.map((tagValue, index) => (
+            <TagChip
+              key={index}
+              tag={tagValue}
+              onClick={handleTagClick(index)}
+              onDelete={displayOnly ? undefined : handleTagDelete(index)}
             />
-          )}
-        />
-        <BuilderDialog
-          open={tagDialogOpen}
-          currentTag={currentTag}
-          setCurrentTag={setCurrentTag}
-          handleClose={() => setTagDialogOpen(false)}
-          handleSave={handleTagAdd}
-        />
-      </Grid>
+          ))
+        }
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label="Tags"
+            value=""
+            className={classes.hideCaret}
+          />
+        )}
+      />
+      <BuilderDialog
+        open={tagDialogOpen}
+        currentTag={currentTag}
+        setCurrentTag={setCurrentTag}
+        handleClose={() => setTagDialogOpen(false)}
+        handleSave={handleTagAdd}
+      />
     </Grid>
   );
 };

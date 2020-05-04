@@ -104,7 +104,7 @@ const OptionGroup = ({ group, children }) => {
     COMMITTEE: "Committee Roles",
     PRODUCTION: "Production Roles",
     PERFORMANCE: "On-Stage Roles",
-    SOCIETY: "Society Roles",
+    SOCIETY: "Other Society Roles",
     SHOW: "Shows",
     EVENT: "Other Events",
     ANNIVERSARY: "Anniversary Events",

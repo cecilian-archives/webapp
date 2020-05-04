@@ -3,12 +3,13 @@ import { Dashboard } from "@uppy/react";
 import "@uppy/core/dist/style.min.css";
 import "@uppy/dashboard/dist/style.min.css";
 
-const getKind = key => (key === "main" ? "PRIMARY" : String(key).toUpperCase());
+const getKind = (key) =>
+  key === "main" ? "PRIMARY" : String(key).toUpperCase();
 
 const FileUploader = ({ item, setItem, uppy }) => {
-  uppy.on("transloadit:complete", assembly => {
+  uppy.on("transloadit:complete", (assembly) => {
     const files = assembly.results
-      ? Object.keys(assembly.results).map(fileKey => {
+      ? Object.keys(assembly.results).map((fileKey) => {
           const [
             {
               signed_url,

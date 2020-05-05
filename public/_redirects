@@ -1,6 +1,0 @@
-# Redirect default Netlify subdomain to primary domain
-https://cecilian-archives-upload.netlify.com/* https://upload.cecilianarchives.com/:splat 301!
-
-# Send all other requests to index.html
-# to allow client-side routing
-/* /index.html 200

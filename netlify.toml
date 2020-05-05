@@ -7,3 +7,17 @@
   to = "https://www.cecilianarchives.com/:splat"
   status = 301
   force = true
+
+# Redirect default Netlify subdomain to primary domain
+[[redirects]]
+  from = "https://cecilian-archives.netlify.com/*"
+  to = "https://www.cecilianarchives.com/:splat"
+  status = 301
+  force = true
+
+# Send all other requests to index.html to allow client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false

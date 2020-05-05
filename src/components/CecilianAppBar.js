@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../assets/logo.png";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(1),
   },
@@ -29,12 +29,12 @@ const CecilianAppBar = () => {
           <Link to="/">
             <img
               src={logo}
-              alt="The Cecilian Archive logo"
+              alt="The Cecilian Archives logo"
               className={classes.logo}
             />
           </Link>
           <Typography variant="h6" color="inherit" className={classes.appTitle}>
-            Cecilian Archive Uploader
+            The Cecilian Archives
           </Typography>
         </Toolbar>
       </AppBar>

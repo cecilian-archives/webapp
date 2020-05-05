@@ -14,14 +14,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     width: "100%",
   },
-  itemSpaceTop: {
+  tagBuilderRoot: {
     width: "100%",
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(1),
-  },
-  itemSpaceBottom: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(2, 0),
   },
   hideCaret: {
     caretColor: "transparent",
@@ -77,7 +72,7 @@ const TagBuilder = ({ enteredTags, setEnteredTags, displayOnly = false }) => {
   };
 
   return (
-    <Grid item xs={12} className={classes.itemSpaceTop}>
+    <Grid item xs={12} className={classes.tagBuilderRoot}>
       <Autocomplete
         id="tags"
         classes={{

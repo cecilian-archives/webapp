@@ -4,7 +4,7 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import { format } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 const FormFields = ({ item, setItem, acquisitionMethods }) => {
   const classes = useStyles();
 
-  const generateReference = name => value => {
+  const generateReference = (name) => (value) => {
     if (name !== "collection" && name !== "associatedDate") return "";
 
     const collectionValue = name === "collection" ? value : item.collection;
@@ -38,7 +38,7 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
     return collectionRef || dateRef ? `${collectionRef}-${dateRef}` : "";
   };
 
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     const newValue = event?.target?.value || "";
     name === "collection"
       ? setItem({
@@ -49,7 +49,7 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
       : setItem({ ...item, [name]: newValue });
   };
 
-  const handleDateChange = date => {
+  const handleDateChange = (date) => {
     setItem({
       ...item,
       archiveId: generateReference("associatedDate")(date),
@@ -104,7 +104,7 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
         variant="outlined"
         required
       >
-        {acquisitionMethods.map(option => {
+        {acquisitionMethods.map((option) => {
           const lcOption = String(option).toLowerCase();
           const displayOption =
             lcOption.charAt(0).toUpperCase() + lcOption.slice(1);
@@ -144,15 +144,6 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
         variant="outlined"
         placeholder="Are these minutes from an AGM? Are they actually minutes at all? Any other info."
       />
-      {/* // TODO: A tagging system!
-        <TextField
-          id="tags"
-          label="Tags"
-          className={classes.formField}
-          value={item.tags}
-          onChange={handleChange("tags")}
-          variant="outlined"
-        /> */}
     </form>
   );
 };

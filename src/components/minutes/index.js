@@ -6,10 +6,10 @@ import TagBuilder from "../shared/TagBuilder/";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  minutesUploadFormRoot: {
+  fullWidth: {
     width: "100%",
   },
-  saveButton: {
+  saveButtonContainer: {
     margin: theme.spacing(3, 0),
     width: "100%",
   },
@@ -27,17 +27,14 @@ const MinutesUploadForm = ({
   const classes = useStyles();
   const setEnteredTags = (tags) => setItem({ ...item, tags });
   return (
-    <>
-      <Grid
-        item
-        xs={12}
-        sm={10}
-        md={8}
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
+    <Grid
+      className={classes.fullWidth}
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid item xs={12} sm={10} md={8} className={classes.fullWidth}>
         <FormFields
           item={item}
           setItem={setItem}
@@ -46,16 +43,7 @@ const MinutesUploadForm = ({
         <FileUploader item={item} setItem={setItem} uppy={uppy} />
         <TagBuilder enteredTags={item.tags} setEnteredTags={setEnteredTags} />
       </Grid>
-      <Grid
-        item
-        xs={12}
-        sm={10}
-        md={8}
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
+      <Grid item xs={12} sm={10} md={8} className={classes.saveButtonContainer}>
         <Button
           variant="contained"
           color="secondary"
@@ -65,12 +53,12 @@ const MinutesUploadForm = ({
             !Boolean(item.files.length) ||
             !(item.collection && item.acquisitionMethod)
           }
-          className={classes.saveButton}
+          className={classes.fullWidth}
         >
           {currentlySaving ? "Saving..." : "Save"}
         </Button>
       </Grid>
-    </>
+    </Grid>
   );
 };
 

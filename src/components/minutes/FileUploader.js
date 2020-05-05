@@ -43,8 +43,8 @@ const FileUploader = ({ item, setItem, uppy }) => {
     <Dashboard
       uppy={uppy}
       inline={true}
-      width={undefined}
-      height={500}
+      width="100%"
+      height={200}
       showLinkToFileUploadResult={false}
       showProgressDetails={true}
       hideProgressAfterFinish={false}

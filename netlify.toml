@@ -1,4 +1,9 @@
 [build]
   command = "yarn build"
-  functions = "lambda"
   publish = "build"
+
+[[redirects]]
+  from = "https://upload.cecilianarchives.com/*"
+  to = "https://www.cecilianarchives.com/:splat"
+  status = 301
+  force = true

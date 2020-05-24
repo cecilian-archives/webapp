@@ -77,7 +77,7 @@ export const tagTypeProperties = {
     icon: <DateRangeIcon />,
     colour: "brightOrange",
     label: "Year",
-    description: "Tag the Cecilian year",
+    description: "Tag the Cecilian year (AGM to AGM)",
     query: gql`
       {
         options: getAllYears {

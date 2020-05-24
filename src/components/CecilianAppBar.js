@@ -34,7 +34,7 @@ const CecilianAppBar = () => {
             />
           </Link>
           <Typography variant="h6" color="inherit" className={classes.appTitle}>
-            The Cecilian Archives
+            Cecilian Archives
           </Typography>
         </Toolbar>
       </AppBar>

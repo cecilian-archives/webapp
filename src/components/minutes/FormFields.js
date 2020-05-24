@@ -40,11 +40,13 @@ const FormFields = ({ item, setItem, acquisitionMethods }) => {
 
   const handleChange = (name) => (event) => {
     const newValue = event?.target?.value || "";
+    const sanitiseCollection = (value) =>
+      String(value).toUpperCase().replace(/\s/g, "");
     name === "collection"
       ? setItem({
           ...item,
-          archiveId: generateReference(name)(newValue.toUpperCase()),
-          [name]: newValue.toUpperCase(),
+          archiveId: generateReference(name)(sanitiseCollection(newValue)),
+          [name]: sanitiseCollection(newValue),
         })
       : setItem({ ...item, [name]: newValue });
   };

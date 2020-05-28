@@ -40,7 +40,18 @@ const DevPage = () => {
       >
         <Typography variant="h4">Development</Typography>
       </Grid>
-      <TagBuilder enteredTags={enteredTags} setEnteredTags={setEnteredTags} />
+      <Grid
+        item
+        xs={12}
+        sm={10}
+        md={8}
+        container
+        direction="column"
+        justify="center"
+        alignItems="flex-start"
+      >
+        <TagBuilder enteredTags={enteredTags} setEnteredTags={setEnteredTags} />
+      </Grid>
     </Grid>
   );
 };

@@ -6,7 +6,7 @@ import ListIcon from "@material-ui/icons/ListAlt";
 import ImageIcon from "@material-ui/icons/Image";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
     textTransform: "none",
@@ -49,7 +49,6 @@ const StartPage = () => {
         className={classes.itemSpaceBottom}
       >
         <Button
-          disabled
           variant="contained"
           color="secondary"
           size="large"

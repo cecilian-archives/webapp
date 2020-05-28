@@ -44,7 +44,7 @@ const FileUploader = ({ item, setItem, uppy }) => {
       uppy={uppy}
       inline={true}
       width="100%"
-      height={200}
+      height={320}
       showLinkToFileUploadResult={false}
       showProgressDetails={true}
       hideProgressAfterFinish={false}

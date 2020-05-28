@@ -8,16 +8,23 @@ import {
 } from "@apollo/client";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/analytics";
 import DateFnsUtils from "@date-io/date-fns";
 import { CssBaseline } from "@material-ui/core";
 import archiveTheme from "./theme";
 import App from "./App";
+import { firebaseConfig } from "./config";
 import * as serviceWorker from "./serviceWorker";
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 const graphqlClient = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: "https://europe-west2-cecilian-archives.cloudfunctions.net/api",
+    uri: process.env.REACT_APP_APOLLO_API_URI,
   }),
 });
 

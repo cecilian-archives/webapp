@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   option: {},
+  reloadButton: {
+    padding: theme.spacing(1),
+  },
 }));
 
 const optionSort = (type) => (optA, optB) => {
@@ -157,18 +160,25 @@ const ConnectedAutocomplete = ({
   const typeField = String(type).toLowerCase();
 
   const handleOpen = () => {
-    getOptions({
-      fetchPolicy: "cache-first",
+    !data &&
+      getOptions({
+        fetchPolicy: "cache-first",
+        errorPolicy: "none",
+        partialRefetch: true,
+        returnPartialData: true,
+        notifyOnNetworkStatusChange: true,
+      });
+    setOpen(true);
+  };
+
+  const handleRefetch = () => {
+    refetch({
+      fetchPolicy: "network-only",
       errorPolicy: "none",
       partialRefetch: true,
       returnPartialData: true,
       notifyOnNetworkStatusChange: true,
     });
-    setOpen(true);
-  };
-
-  const handleRefetch = () => {
-    refetch();
     setOpen(true);
   };
 
@@ -221,15 +231,22 @@ const ConnectedAutocomplete = ({
             required ? "" : " (optional)"
           }`}
           variant="outlined"
-          placeholder="Type to search"
+          placeholder={
+            error
+              ? "Couldn't load. Use the button to try again."
+              : "Type to search"
+          }
           InputProps={{
             ...params.InputProps,
             endAdornment: (
               <>
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
-                ) : error && !tagToEdit[typeField] ? (
-                  <IconButton onClick={handleRefetch}>
+                ) : error || (data && !tagToEdit[typeField]) ? (
+                  <IconButton
+                    onClick={handleRefetch}
+                    className={classes.reloadButton}
+                  >
                     <ReloadIcon />
                   </IconButton>
                 ) : null}

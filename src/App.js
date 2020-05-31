@@ -12,7 +12,7 @@ import MinutesPage from "./components/root/MinutesPage";
 import PhotosPage from "./components/root/PhotosPage";
 import PalettePage from "./components/root/PalettePage";
 import TempScanPage from "./components/root/TempScanPage";
-import DevPage from "./components/root/DevPage";
+import PeopleManagementPage from "./components/root/PeopleManagementPage";
 import PrototypeDemo from "./components/root/PrototypeDemo";
 import LoginPage from "./components/root/LoginPage";
 
@@ -26,7 +26,7 @@ const App = () => (
         <Route path="/photos" element={<PhotosPage />} />
         <Route path="/palette" element={<PalettePage />} />
         <Route path="/scangen" element={<TempScanPage />} />
-        <Route path="/dev" element={<DevPage />} />
+        <Route path="/people" element={<PeopleManagementPage />} />
         <Route path="/prototype" element={<PrototypeDemo />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" />} />

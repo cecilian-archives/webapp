@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
-import TagBuilder from "../shared/TagBuilder/";
+import PersonTagger from "../person/";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,9 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DevPage = () => {
+const PeopleManagementPage = () => {
   const classes = useStyles();
-  const [enteredTags, setEnteredTags] = React.useState([]);
 
   return (
     <Grid
@@ -38,7 +37,7 @@ const DevPage = () => {
         alignItems="flex-start"
         className={classes.pageTitleContainer}
       >
-        <Typography variant="h4">Development</Typography>
+        <Typography variant="h4">People</Typography>
       </Grid>
       <Grid
         item
@@ -50,10 +49,10 @@ const DevPage = () => {
         justify="center"
         alignItems="flex-start"
       >
-        <TagBuilder enteredTags={enteredTags} setEnteredTags={setEnteredTags} />
+        <PersonTagger />
       </Grid>
     </Grid>
   );
 };
 
-export default DevPage;
+export default PeopleManagementPage;

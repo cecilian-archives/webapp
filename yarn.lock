@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.0.0-beta.41":
-  version "3.0.0-beta.44"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.44.tgz#79c6083dc2fe81725ad64398bc78e641ed1c1d84"
-  integrity sha512-udNiabIYs9WLHWvj2j6tlsaWPNhgMZsHrZyBTKOh+69fLpmZZ4Vv4mepWq/3WCzyHoWa3n3FPi/ajNljkO/Olg==
+"@apollo/client@3.0.0-beta.45":
+  version "3.0.0-beta.45"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.45.tgz#41ece7a0220a5a5dd4776141ee3f613ba5aa01e8"
+  integrity sha512-a/eElYc28yXxp5dZyedT0kyPmuNt5ZyTr/AoUircTd22zpP5YpzJHTbJC7ms0DMtX95LTToTY9zyPv9f1Kh1ww==
   dependencies:
     "@types/zen-observable" "^0.8.0"
     "@wry/equality" "^0.1.9"
@@ -11131,10 +11131,15 @@ ts-pnp@^1.1.6:
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
 
-tslib@1.11.1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@1.11.1, tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+
+tslib@^1.10.0, tslib@^1.9.3:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
+  integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
 tsutils@^3.17.1:
   version "3.17.1"

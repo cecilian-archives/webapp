@@ -18,6 +18,10 @@ const FileUploader = ({ item, setItem, uppy }) => {
               signed_ssl_url,
               tus_upload_url,
               meta,
+              id,
+              // Extract the ID because we are creating a new file document
+              // in Firebase, and we don't therefore want the API to attempt
+              // to update an existing document with this ID.
               ...neededFields
             },
           ] = assembly.results[fileKey];

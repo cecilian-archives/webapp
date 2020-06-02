@@ -35,6 +35,7 @@ const UpdatePersonTags = ({ currentPerson, enteredTags, setEnteredTags }) => {
     const personInput = {
       id: currentPerson.person.id,
       tags: enteredTags.map((tag) => ({
+        ...(tag.id ? { id: tag.id } : {}),
         type: tag.type,
         ...(tag.person ? { person: tag.person?.id } : {}),
         ...(tag.year ? { year: tag.year?.id } : {}),

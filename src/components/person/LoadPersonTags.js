@@ -25,32 +25,39 @@ const GET_PERSON = gql`
         type
         ... on EventTag {
           event {
+            id
             type
             name
           }
           year {
+            id
             name
           }
         }
         ... on YearTag {
           year {
+            id
             name
           }
         }
         ... on PersonTag {
           person {
+            id
             name
           }
         }
         ... on RoleTag {
           role {
+            id
             type
             name
           }
           year {
+            id
             name
           }
           event {
+            id
             type
             name
           }

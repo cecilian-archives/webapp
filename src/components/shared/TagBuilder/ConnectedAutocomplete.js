@@ -12,6 +12,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { useLazyQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
+import { format } from "date-fns";
 import { tagTypeProperties, eventTypeOrder, roleTypeOrder } from "./config";
 
 const useStyles = makeStyles((theme) => ({
@@ -94,6 +95,15 @@ const getOptionLabel = (type) => (option) => {
           : "";
       return option ? `${option.name}${showList}` : "";
     case "PERSON":
+      const activeFromYear =
+        option.activeFrom !== null ? format(option.activeFrom, "yyyy") : null;
+      const activeToYear =
+        option.activeTo !== null ? format(option.activeTo, "yyyy") : null;
+      const yearNote =
+        activeFromYear || activeToYear
+          ? ` (active ${activeFromYear || ""}-${activeToYear || ""})`
+          : "";
+      return option ? `${option.name}${yearNote}` : "";
     default:
       return option ? option.name : "";
   }

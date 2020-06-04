@@ -66,6 +66,8 @@ export const tagTypeProperties = {
         options: getAllCecilians {
           id
           name
+          activeFrom
+          activeTo
         }
       }
     `,

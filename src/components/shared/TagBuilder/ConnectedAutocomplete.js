@@ -13,7 +13,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { useLazyQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { format } from "date-fns";
-import { tagTypeProperties, eventTypeOrder, roleTypeOrder } from "./config";
+import { tagTypeProperties, optionSort } from "./config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,37 +39,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
 }));
-
-const optionSort = (type) => (optA, optB) => {
-  if (type === "EVENT") {
-    if (eventTypeOrder.indexOf(optA.type) < eventTypeOrder.indexOf(optB.type))
-      return -1;
-    if (eventTypeOrder.indexOf(optA.type) > eventTypeOrder.indexOf(optB.type))
-      return 1;
-    if (
-      (optA.type === "SHOW" && optB.type === "SHOW") ||
-      (optA.type === "ANNIVERSARY" && optB.type === "ANNIVERSARY")
-    ) {
-      // TODO: change this to use event.startDate instead
-      // This way does not correctly order weekend/main shows
-      if (optA?.year?.name < optB?.year?.name) return 1;
-      if (optA?.year?.name > optB?.year?.name) return -1;
-    }
-  }
-  if (type === "ROLE") {
-    if (roleTypeOrder.indexOf(optA.type) < roleTypeOrder.indexOf(optB.type))
-      return -1;
-    if (roleTypeOrder.indexOf(optA.type) > roleTypeOrder.indexOf(optB.type))
-      return 1;
-    if (optA.type === "PERFORMANCE" && optB.type === "PERFORMANCE") {
-      if (optA?.event?.name < optB?.event?.name) return -1;
-      if (optA?.event?.name > optB?.event?.name) return 1;
-    }
-  }
-  if (optA.name < optB.name) return -1;
-  if (optA.name > optB.name) return 1;
-  return 0;
-};
 
 const getOptionLabel = (type) => (option) => {
   switch (type) {

@@ -14,6 +14,37 @@ export const roleTypeOrder = [
   "SOCIETY",
 ];
 
+export const optionSort = (type) => (optA, optB) => {
+  if (type === "EVENT") {
+    if (eventTypeOrder.indexOf(optA.type) < eventTypeOrder.indexOf(optB.type))
+      return -1;
+    if (eventTypeOrder.indexOf(optA.type) > eventTypeOrder.indexOf(optB.type))
+      return 1;
+    if (
+      (optA.type === "SHOW" && optB.type === "SHOW") ||
+      (optA.type === "ANNIVERSARY" && optB.type === "ANNIVERSARY")
+    ) {
+      // TODO: change this to use event.startDate instead
+      // This way does not correctly order weekend/main shows
+      if (optA?.year?.name < optB?.year?.name) return 1;
+      if (optA?.year?.name > optB?.year?.name) return -1;
+    }
+  }
+  if (type === "ROLE") {
+    if (roleTypeOrder.indexOf(optA.type) < roleTypeOrder.indexOf(optB.type))
+      return -1;
+    if (roleTypeOrder.indexOf(optA.type) > roleTypeOrder.indexOf(optB.type))
+      return 1;
+    if (optA.type === "PERFORMANCE" && optB.type === "PERFORMANCE") {
+      if (optA?.event?.name < optB?.event?.name) return -1;
+      if (optA?.event?.name > optB?.event?.name) return 1;
+    }
+  }
+  if (optA.name < optB.name) return -1;
+  if (optA.name > optB.name) return 1;
+  return 0;
+};
+
 export const sortTags = (tagList) => {
   const sortedList = [...tagList].sort((tagA, tagB) => {
     if (tagA.type === "EVENT" && tagB.type === "EVENT") {
@@ -44,10 +75,11 @@ export const sortTags = (tagList) => {
     if (typeOrder.indexOf(tagA.type) < typeOrder.indexOf(tagB.type)) return -1;
     if (typeOrder.indexOf(tagA.type) > typeOrder.indexOf(tagB.type)) return 1;
 
-    if (tagA[tagA.type.toLowerCase()].name < tagB[tagB.type.toLowerCase()].name)
-      return -1;
-    if (tagA[tagA.type.toLowerCase()].name > tagB[tagB.type.toLowerCase()].name)
-      return 1;
+    if (tagA.type === tagB.type)
+      return optionSort(tagA.type)(
+        tagA[tagA.type.toLowerCase()],
+        tagB[tagB.type.toLowerCase()]
+      );
 
     return 0;
   });

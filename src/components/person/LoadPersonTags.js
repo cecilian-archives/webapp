@@ -64,6 +64,10 @@ const GET_PERSON = gql`
             id
             type
             name
+            year {
+              id
+              name
+            }
           }
         }
       }

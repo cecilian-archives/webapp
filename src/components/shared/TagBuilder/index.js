@@ -44,12 +44,37 @@ const TagBuilder = ({ enteredTags, setEnteredTags, displayOnly = false }) => {
   const handleTagDelete = (index) => () =>
     setEnteredTags(enteredTags.filter((tag, idx) => idx !== index));
 
-  const handleTagAdd = (tag) => {
-    const { editIndex, ...tagToSanitise } = tag;
-    const tagToAdd = sanitiseTag(tagToSanitise);
+  const extractToNewTag = (ancestorTag) => {
+    const getExtractionType = (type) => {
+      switch (type) {
+        case "ROLE":
+          return ancestorTag.role.type === "COMMITTEE" ||
+            ancestorTag.role.type === "SOCIETY"
+            ? "YEAR"
+            : "EVENT";
+        case "EVENT":
+          return "YEAR";
+        default:
+          return "";
+      }
+    };
+    const extractionType = getExtractionType(ancestorTag.type);
+    const lcExtractionType = extractionType.toLowerCase();
+    const lcType = ancestorTag.type.toLowerCase();
+
+    const extractedValue =
+      ancestorTag?.[lcExtractionType] ||
+      ancestorTag?.[lcType]?.[lcExtractionType];
+    return handleTagAdd({
+      type: extractionType,
+      [lcExtractionType]: extractedValue,
+    });
+  };
+
+  const validateTag = (tagToAdd, editIndex = undefined) => {
     if (!tagToAdd.type || !tagToAdd[tagToAdd.type.toLowerCase()])
       return {
-        success: false,
+        valid: false,
         message: "Some required properties are missing.",
       };
 
@@ -62,12 +87,34 @@ const TagBuilder = ({ enteredTags, setEnteredTags, displayOnly = false }) => {
     );
     if (matchingTags.length > 0)
       return {
-        success: false,
+        valid: false,
         message:
           "This tag already exists in some form. To add new info, edit the existing tag.",
       };
 
-    setEnteredTags(sortTags([...tagsToMatch, tagToAdd]));
+    return { valid: true, tagsToMatch };
+  };
+
+  const handleTagAdd = (tag) => {
+    const { editIndex, ...tagToSanitise } = tag;
+    const tagToAdd = sanitiseTag(tagToSanitise);
+    const validationResult = validateTag(tagToAdd, editIndex);
+
+    if (!validationResult.valid)
+      return {
+        success: validationResult.valid,
+        message: validationResult.message,
+      };
+
+    if (tag.type === "ROLE" || tag.type === "EVENT") extractToNewTag(tag);
+
+    setEnteredTags((prevTags) => {
+      const untouchedTags =
+        editIndex !== undefined
+          ? prevTags.filter((tag, index) => index !== editIndex)
+          : prevTags;
+      return sortTags([...untouchedTags, tagToAdd]);
+    });
     return { success: true };
   };
 

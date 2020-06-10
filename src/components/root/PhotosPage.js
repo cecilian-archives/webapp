@@ -46,12 +46,12 @@ const emptyItem = {
   acquiredBy: "",
   uploadedBy: "",
   files: [],
-  tags: [],
 };
 
 const PhotosPage = () => {
   const classes = useStyles();
   const [item, setItem] = React.useState(emptyItem);
+  const [tags, setTags] = React.useState([]);
   const [uploadCompleted, setUploadCompleted] = React.useState(false);
   const [uploadError, setUploadError] = React.useState(false);
 
@@ -93,7 +93,7 @@ const PhotosPage = () => {
   const handleSave = async () => {
     const newItem = {
       ...item,
-      tags: item.tags.map((tag) => ({
+      tags: tags.map((tag) => ({
         type: tag.type,
         ...(tag.person ? { person: tag.person?.id } : {}),
         ...(tag.year ? { year: tag.year?.id } : {}),
@@ -186,6 +186,8 @@ const PhotosPage = () => {
         <PhotosUploadForm
           item={item}
           setItem={setItem}
+          tags={tags}
+          setTags={setTags}
           uppy={uppy}
           handleSave={handleSave}
           currentlySaving={loading}

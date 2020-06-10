@@ -20,12 +20,13 @@ const acquisitionMethods = ["TRANSCRIPTION", "SCAN"];
 const MinutesUploadForm = ({
   item,
   setItem,
+  tags,
+  setTags,
   uppy,
   handleSave,
   currentlySaving,
 }) => {
   const classes = useStyles();
-  const setEnteredTags = (tags) => setItem({ ...item, tags });
   return (
     <Grid
       className={classes.fullWidth}
@@ -41,7 +42,7 @@ const MinutesUploadForm = ({
           acquisitionMethods={acquisitionMethods}
         />
         <FileUploader item={item} setItem={setItem} uppy={uppy} />
-        <TagBuilder enteredTags={item.tags} setEnteredTags={setEnteredTags} />
+        <TagBuilder enteredTags={tags} setEnteredTags={setTags} />
       </Grid>
       <Grid item xs={12} sm={10} md={8} className={classes.saveButtonContainer}>
         <Button

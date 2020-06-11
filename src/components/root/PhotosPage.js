@@ -85,6 +85,7 @@ const PhotosPage = () => {
   const resetState = async () => {
     await uppy.reset();
     setItem(emptyItem);
+    setTags([]);
     setPhotoProgress("BASE");
     setUploadCompleted(false);
     setUploadError(false);

@@ -64,6 +64,7 @@ const MinutesPage = () => {
   const resetState = async () => {
     await uppy.reset();
     setItem(emptyItem);
+    setTags([]);
     setUploadCompleted(false);
     setUploadError(false);
   };

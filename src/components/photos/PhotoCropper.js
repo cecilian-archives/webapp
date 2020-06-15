@@ -145,7 +145,7 @@ const PhotoCropper = ({
           <Typography variant="body1">
             {inPreviewMode
               ? "Your cropped image looks like this. Do you want to go ahead and upload it?"
-              : "Crop the image as best you can to remove most, but not all, blank space. Keep the label in!"}
+              : "Crop the image as best you can to remove most, but not all, blank space from the scan."}
           </Typography>
         </Grid>
         <Grid

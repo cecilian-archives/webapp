@@ -86,14 +86,8 @@ const LoadPersonTags = ({
   const classes = useStyles();
   const [statusToDisplay, setStatusToDisplay] = React.useState("");
 
-  const [getPerson, { loading, error, data }] = useLazyQuery(GET_PERSON, {
-    variables: { personId: currentPerson?.person?.id },
-    fetchPolicy: "network-only",
-    errorPolicy: "none",
-    partialRefetch: true,
-    returnPartialData: true,
-    notifyOnNetworkStatusChange: true,
-    onCompleted: () => {
+  const queryCompleted = React.useCallback(
+    (data) => {
       const tags = data?.getCecilianById?.tags || [];
       setStatusToDisplay(
         `Loaded tags for ${currentPerson.person.name}${
@@ -102,11 +96,27 @@ const LoadPersonTags = ({
       );
       successCallback && successCallback(tags);
     },
-    onError: () => {
+    [setStatusToDisplay, successCallback, currentPerson]
+  );
+
+  const queryErrored = React.useCallback(
+    (error) => {
       setStatusToDisplay(
         `Could not load tags for ${currentPerson?.person?.name}. Error was: ${error}`
       );
     },
+    [setStatusToDisplay, currentPerson]
+  );
+
+  const [getPerson, { loading }] = useLazyQuery(GET_PERSON, {
+    variables: { personId: currentPerson?.person?.id },
+    fetchPolicy: "network-only",
+    errorPolicy: "none",
+    partialRefetch: true,
+    returnPartialData: true,
+    notifyOnNetworkStatusChange: true,
+    onCompleted: queryCompleted,
+    onError: queryErrored,
   });
 
   const getPersonData = () => {

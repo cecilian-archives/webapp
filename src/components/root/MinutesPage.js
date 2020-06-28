@@ -50,16 +50,13 @@ const MinutesPage = () => {
   const [uploadCompleted, setUploadCompleted] = React.useState(false);
   const [uploadError, setUploadError] = React.useState(false);
 
-  const [addArchiveItem, { loading, error, data }] = useMutation(
-    ADD_ARCHIVE_ITEM,
-    {
-      onCompleted: () => {
-        setUploadCompleted(true);
-        console.log(`Successful upload: ${data.id}`);
-      },
-      onError: () => setUploadError(error),
-    }
-  );
+  const [addArchiveItem, { loading }] = useMutation(ADD_ARCHIVE_ITEM, {
+    onCompleted: (data) => {
+      setUploadCompleted(true);
+      console.log(`Successful upload: ${data.setArchiveItem.id}`);
+    },
+    onError: (error) => setUploadError(error),
+  });
 
   const resetState = async () => {
     await uppy.reset();

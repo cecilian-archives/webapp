@@ -6,6 +6,7 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
+import { RecoilRoot } from "recoil";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import firebase from "firebase/app";
@@ -32,12 +33,14 @@ const graphqlClient = new ApolloClient({
 
 const ConnectedApp = () => (
   <ApolloProvider client={graphqlClient}>
-    <MuiThemeProvider theme={archiveTheme}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <CssBaseline />
-        <App />
-      </MuiPickersUtilsProvider>
-    </MuiThemeProvider>
+    <RecoilRoot>
+      <MuiThemeProvider theme={archiveTheme}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <CssBaseline />
+          <App />
+        </MuiPickersUtilsProvider>
+      </MuiThemeProvider>
+    </RecoilRoot>
   </ApolloProvider>
 );
 

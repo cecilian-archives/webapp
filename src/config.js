@@ -9,7 +9,7 @@ export const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-export const transloaditKey = "750d26800c9411e99ff16dafffcf4ae2";
+export const transloaditKey = process.env.REACT_APP_TRANSLOADIT_AUTH_KEY;
 export const transloaditMinutesTemplateId = "a34188603a2611e9b44f2f1f0370e845";
 export const transloaditPhotosTemplateId = "5a080bc0102211e9a9858bdad297fa5a";
 export const transloaditMinutesAllowedFileTypes = [".pdf"];

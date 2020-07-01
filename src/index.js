@@ -26,6 +26,8 @@ const graphqlClient = new ApolloClient({
   link: new HttpLink({
     uri: process.env.REACT_APP_APOLLO_API_URI,
   }),
+  name: process.env.REACT_APP_NAME,
+  version: process.env.REACT_APP_VERSION,
 });
 
 const ConnectedApp = () => (

@@ -4,13 +4,13 @@
 
 [[redirects]]
   from = "https://upload.cecilianarchives.com/*"
-  to = "https://www.cecilianarchives.com/:splat"
+  to = "https://www.cecilianarchives.com/upload/:splat"
   status = 301
   force = true
 
 # Redirect default Netlify subdomain to primary domain
 [[redirects]]
-  from = "https://cecilian-archives.netlify.com/*"
+  from = "https://cecilian-archives.netlify.app/*"
   to = "https://www.cecilianarchives.com/:splat"
   status = 301
   force = true

@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
+import { KeyboardDatePicker } from "@material-ui/pickers";
 import ArchiveItemCard from "../shared/ArchiveItemCard/";
 import { gql, useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,11 +15,14 @@ const useStyles = makeStyles((theme) => ({
   pageTitleContainer: {
     margin: theme.spacing(2, 0),
   },
+  datePicker: {
+    margin: theme.spacing(1, 2, 2, 1),
+  },
 }));
 
 const GET_ARCHIVE_ITEMS = gql`
-  {
-    getArchiveItems {
+  query($start: Date!, $end: Date!) {
+    getArchiveItemsByDateRange(startDate: $start, endDate: $end) {
       id
       archiveId
       type
@@ -59,7 +63,17 @@ const sortByAssociatedDate = (itemA, itemB) => {
 
 const PrototypeDemo = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_ARCHIVE_ITEMS);
+  const [start, setStart] = React.useState(null);
+  const [end, setEnd] = React.useState(null);
+
+  const { loading, error, data } = useQuery(GET_ARCHIVE_ITEMS, {
+    variables: {
+      start,
+      end,
+    },
+    returnPartialData: true,
+    skip: !start || !end,
+  });
 
   return (
     <Grid
@@ -73,7 +87,6 @@ const PrototypeDemo = () => {
         item
         xs={12}
         sm={10}
-        md={8}
         container
         direction="column"
         justify="center"
@@ -86,7 +99,46 @@ const PrototypeDemo = () => {
         item
         xs={12}
         sm={10}
-        md={8}
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+      >
+        <KeyboardDatePicker
+          openTo="year"
+          views={["year", "month", "date"]}
+          format="yyyy-MM-dd"
+          clearable
+          minDate={new Date("1952-10-18")}
+          maxDate={end || new Date()}
+          id="startDate"
+          label="Start Date"
+          value={start}
+          onChange={(date) => setStart(date)}
+          inputVariant="outlined"
+          placeholder="The date to begin your search"
+          className={classes.datePicker}
+        />
+        <KeyboardDatePicker
+          openTo="year"
+          views={["year", "month", "date"]}
+          format="yyyy-MM-dd"
+          clearable
+          minDate={start || new Date("1952-10-18")}
+          maxDate={new Date()}
+          id="endDate"
+          label="End Date"
+          value={end}
+          onChange={(date) => setEnd(date)}
+          inputVariant="outlined"
+          placeholder="The date to finish your search"
+          className={classes.datePicker}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        sm={10}
         container
         direction="row"
         justify="flex-start"
@@ -94,13 +146,13 @@ const PrototypeDemo = () => {
       >
         {loading ? (
           <pre>Loading...</pre>
-        ) : error ? (
-          <pre>{error}</pre>
+        ) : error || !data?.getArchiveItemsByDateRange?.length ? (
+          <pre>No items to show for this date range</pre>
         ) : (
-          data.getArchiveItems
-            .slice()
-            .sort(sortByAssociatedDate)
-            .map((item) => <ArchiveItemCard key={item.id} item={item} />)
+          data.getArchiveItemsByDateRange
+            ?.slice()
+            ?.sort(sortByAssociatedDate)
+            ?.map((item) => <ArchiveItemCard key={item.id} item={item} />)
         )}
       </Grid>
     </Grid>

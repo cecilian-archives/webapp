@@ -13,6 +13,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.50",
     "@material-ui/pickers": "3.2.9",
+    "@reduxjs/toolkit": "^1.4.0",
     "@uppy/core": "^1.9.0",
     "@uppy/react": "^1.5.0",
     "@uppy/transloadit": "^1.5.3",
@@ -25,9 +26,9 @@
     "react-firebaseui": "^4.1.0",
     "react-image": "^3.0.3",
     "react-image-crop": "^8.6.2",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^6.0.0-beta.0",
-    "react-scripts": "3.4.1",
-    "recoil": "^0.0.10"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,12 +51,7 @@
     ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": [
-        "warn",
-        {
-          "additionalHooks": "useRecoilCallback"
-        }
-      ]
+      "react-hooks/exhaustive-deps": "warn"
     }
   }
 }

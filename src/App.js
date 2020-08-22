@@ -16,24 +16,29 @@ import PeopleManagementPage from "./components/root/PeopleManagementPage";
 import PrototypeDemo from "./components/root/PrototypeDemo";
 import LoginPage from "./components/root/LoginPage";
 
-const App = () => (
-  <Router>
-    <CecilianAppBar />
-    <div style={{ flexGrow: "1" }}>
-      <Routes>
-        <Route path="/" element={<StartPage />} />
-        <Route path="/minutes" element={<MinutesPage />} />
-        <Route path="/photos" element={<PhotosPage />} />
-        <Route path="/palette" element={<PalettePage />} />
-        <Route path="/scangen" element={<TempScanPage />} />
-        <Route path="/people" element={<PeopleManagementPage />} />
-        <Route path="/prototype" element={<PrototypeDemo />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </div>
-    <CecilianLogosFooter />
-  </Router>
-);
+const App = () => {
+  console.info(
+    `${process.env.REACT_APP_NAME} v${process.env.REACT_APP_VERSION}`
+  );
+  return (
+    <Router>
+      <CecilianAppBar />
+      <div style={{ flexGrow: "1" }}>
+        <Routes>
+          <Route path="/" element={<StartPage />} />
+          <Route path="/minutes" element={<MinutesPage />} />
+          <Route path="/photos" element={<PhotosPage />} />
+          <Route path="/palette" element={<PalettePage />} />
+          <Route path="/scangen" element={<TempScanPage />} />
+          <Route path="/people" element={<PeopleManagementPage />} />
+          <Route path="/prototype" element={<PrototypeDemo />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
+      <CecilianLogosFooter />
+    </Router>
+  );
+};
 
 export default App;

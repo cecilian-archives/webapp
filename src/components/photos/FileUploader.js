@@ -18,7 +18,6 @@ const FileUploader = ({ item, setItem, uppy }) => {
               signed_ssl_url,
               tus_upload_url,
               meta,
-              orientation,
               id,
               // Extract the ID because we are creating a new file document
               // in Firebase, and we don't therefore want the API to attempt
@@ -34,6 +33,7 @@ const FileUploader = ({ item, setItem, uppy }) => {
             modify_date,
             date_file_created,
             description,
+            orientation,
             ...neededMetadata
           } = meta;
           return {

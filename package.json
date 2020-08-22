@@ -1,6 +1,6 @@
 {
-  "name": "@cecilian-archives/uploader",
-  "version": "2.9.0",
+  "name": "@cecilian-archives/webapp",
+  "version": "2.9.1",
   "author": {
     "name": "Ben Galloway",
     "email": "archive@bengalloway.io"

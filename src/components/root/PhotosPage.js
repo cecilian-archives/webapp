@@ -38,7 +38,7 @@ const ADD_ARCHIVE_ITEM = gql`
 const emptyItem = {
   archiveId: "",
   type: "PHOTOS",
-  acquisitionMethod: "SCAN",
+  acquisitionMethod: "CREATED_DIGITALLY",
   collection: "",
   indexInCollection: "",
   associatedDate: null,
@@ -62,12 +62,12 @@ const PhotosPage = () => {
   const uppy = useUppy({
     templateId: transloaditPhotosTemplateId,
     allowedFileTypes: transloaditPhotosAllowedFileTypes,
-    onBeforeFileAdded: (file) => {
-      if (file.croppedByUser) return true;
-      setPhotoProgress("CROPPING");
-      setPhotoData(file);
-      return false;
-    },
+    // onBeforeFileAdded: (file) => {
+    //   if (file.croppedByUser) return true;
+    //   setPhotoProgress("CROPPING");
+    //   setPhotoData(file);
+    //   return false;
+    // },
     autoProceed: true,
   });
 

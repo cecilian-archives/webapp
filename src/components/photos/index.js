@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const acquisitionMethods = ["SCAN"];
+const acquisitionMethods = ["CREATED_DIGITALLY", "SCAN"];
 
 const PhotosUploadForm = ({
   item,

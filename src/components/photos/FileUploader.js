@@ -25,21 +25,61 @@ const FileUploader = ({ item, setItem, uppy }) => {
               ...neededFields
             },
           ] = assembly.results[fileKey];
+          // const {
+          //   title,
+          //   author,
+          //   creator,
+          //   create_date,
+          //   modify_date,
+          //   date_file_created,
+          //   description,
+          //   orientation,
+          //   ...neededMetadata
+          // } = meta;
           const {
-            title,
+            page_count,
+            width,
+            height,
+            page_size,
             author,
+            producer,
             creator,
             create_date,
             modify_date,
-            date_file_created,
-            description,
-            orientation,
-            ...neededMetadata
+            thumb_index,
+            date_file_modified,
+            duration,
+            aspect_ratio,
+            has_clipping_path,
+            frame_count,
+            colorspace,
+            has_transparency,
+            average_color,
+            // ...unneededMetadata
           } = meta;
           return {
             kind: getKind(fileKey),
             ...neededFields,
-            meta: neededMetadata,
+            meta: {
+              page_count,
+              width,
+              height,
+              page_size,
+              author,
+              producer,
+              creator,
+              create_date,
+              modify_date,
+              thumb_index,
+              date_file_modified,
+              duration,
+              aspect_ratio,
+              has_clipping_path,
+              frame_count,
+              colorspace,
+              has_transparency,
+              average_color,
+            },
           };
         })
       : [];
